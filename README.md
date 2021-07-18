@@ -3,6 +3,7 @@
 ## Introduction
 GuildChat is React-Based demo of a chat application run on a Node Express server.
 
+
 ## Getting Started
 ### Requirements
 * npm ^7.19.0
@@ -23,6 +24,7 @@ As GuildChat is merely a demo, only two hardcoded user profiles exist.  On the o
 
 As an extra feature, the option to run GuildChat in light or dark mode is included.  Given that the user base of nearly every chat app that exists squabbles over which mode is better... it seemed only fair to provide the choice here as well.  This can be toggled in the upper righthand corner.
 
+
 ## How Does GuildChat Work?
 GuildChat runs on a local Node Express server, with an additional CORS package to allow requests to be made between two different ports (8080 for the server and 3000 for the app).  Data is stored in a single .json file, .data/chatdata.json, which contains both the list of users and the message history.  (Note: some existing message history is included to demonstrate how it might load.)  Interactions with the file system are handled on the server level, using the Node.js File System Callback API.  (See: server.js.)
 
@@ -39,5 +41,21 @@ This first function creates a new object to contain the components of the new me
 Note: Given that the chatdata.json is continually written to, it is bound to become cluttered during testing.  A "clean" copy of the original .json is also included in a backup file in the same folder than can be used to manually restore the chatdata to its original state.
 
 ## What are the Potential Issues/Weaknesses?
+The single greatest weakness within GuildChat is the method of data storage.  Storing all of the data for a chat application in a single .json file has no scalability.  It is sufficient for the purposes of this two-user demo, however a real-world scenario would be better suited with a database-driven solution.  As-is, with every update, the app must process the *entire* chat history rather than only new messages, which will grow increasingly inefficient as the chat history grows longer.  Likewise, if an additional user were to enter the picture, the app would potentially have to process chat data for messages a user is not necessarily a participant in.  (This would present a security risk in additional to the inefficiency.)  Without a shift to a true database solution, this could be improved upon by breaking the data up into multiple json files - perhaps one per user.  This would be an improvement over the current est-up, but still not suitable for a real-world scale.
+
+A second weakness in the design of GuildChat involves the handling of timestamps.  The current implementation creates two different issues.  The first of these again relates to scale.  The history component maps each message using the timestamp as the unique key.  In a real-world scenario with thousands, or even millions, of users, the likelyhood of two messages being sent in the exact same milisecond increases dramatically.  Thus, there is a significant chance that duplicate timestamps might occur.  The second issue is that once a new date object is created, it is not processed in any way, save for converting it into a string.  This means users will see timezome of the sender and the timestamps will not be localized to the user.  This could be solved by converting the date objects to epoch time and storing them in the json in that form.
+
+Note: Details on some of the technical shortcuts taken during the development of GuildChat are also available as comments within the individual component files.
 
 ## Ideas for Future Improvements/Additional Features
+The following features were all considered during the design and build of GuildChat, but not pursued due to time-constraints:
+
+* User Profiles
+  * Adding the ability to "log out" and switch to the other user profile, rather than forcing the user to refresh to do so.
+  * Loading the actual user profiles from the json data to populate the login dropdown rather than hardcoding them.
+  * Adding a third user profile so that the user must select who they wish to speak to rather than automatically selecting them.  (Thus, leveraging to "to" item in every message object that is presently unused.)
+  * Adding avatars to the user profile.
+* Message History/Chat Window
+  * Processing the time stamps so that they are shown in the users' local timezone rather than the timezone of the sender.
+  * Separating existing messages from new messages and adding a visual signifier of this, or visually separating messages by date.
+ * ADA/WCAG compliance.
