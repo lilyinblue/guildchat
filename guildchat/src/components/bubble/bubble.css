@@ -1,0 +1,22 @@
+.bubble {
+    margin-bottom: 1em;
+}
+
+.bubble__name {
+    display: inline-block;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 2em;
+}
+
+.bubble__time {
+    font-size: 1.2rem;
+    display: inline-block;
+    color: #7f7f7f;
+}
+
+.bubble__text {
+    display: block;
+    margin-top: 0.25em;
+}
