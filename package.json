@@ -1,0 +1,16 @@
+{
+  "name": "nodesvc",
+  "version": "1.0.0",
+  "description": "Node Express Server to support React-Based Guild Chat Demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Susan Harlow",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1"
+  }
+}

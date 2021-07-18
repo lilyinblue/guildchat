@@ -1,0 +1,8 @@
+.login__select {
+    padding: 5px;
+    margin-left: 15px;
+}
+
+.login__select:empty {
+    display: none;
+}

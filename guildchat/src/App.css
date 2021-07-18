@@ -1,0 +1,17 @@
+.App {
+  font-size: 1.6rem;
+  min-height: 100vh;
+  background-color: #fff;
+  color: #333;
+  border-color: #000;
+}
+
+.App.dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.App__content {
+  padding: 15px;
+}
+
